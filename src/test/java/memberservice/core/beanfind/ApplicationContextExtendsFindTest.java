@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-public class ApplicationContextExtendsFindTest {
+class ApplicationContextExtendsFindTest {
 	AnnotationConfigApplicationContext ac
 			= new AnnotationConfigApplicationContext(TestConfig.class);
 
