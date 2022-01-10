@@ -25,4 +25,20 @@ public class SingletonTest {
 		// memberService1 != memberService2
 		assertThat(memberService1).isNotSameAs(memberService2);
 	}
+
+	@Test
+	@DisplayName("Singleton Pattern을 적용한 객체 사용")
+	void singletonServiceTest() {
+		// private 생성자 선언 => 외부에서 직접 인스턴스 생성 방지
+		// SingletonService singletonService = new SingletonService();
+
+		SingletonService singletonService1 = SingletonService.getInstance();
+		SingletonService singletonService2 = SingletonService.getInstance();
+
+		System.out.println("SingletonService1 = " + singletonService1);
+		System.out.println("SingletonService2 = " + singletonService2);
+
+		// singletonService1 == singletonService2
+		assertThat(singletonService1).isSameAs(singletonService2);
+	}
 }
