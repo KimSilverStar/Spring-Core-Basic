@@ -27,7 +27,7 @@ public class SingletonTest {
 	}
 
 	@Test
-	@DisplayName("Singleton Pattern을 적용한 객체 사용")
+	@DisplayName("Singleton Pattern 을 적용한 객체 사용")
 	void singletonServiceTest() {
 		// private 생성자 선언 => 외부에서 직접 인스턴스 생성 방지
 		// SingletonService singletonService = new SingletonService();
