@@ -37,4 +37,9 @@ public class OrderServiceImpl implements OrderService {
 
 		return new Order(memberId, itemName, itemPrice, discountPrice);
 	}
+
+	/* 테스드 용도로 추가한 메소드 - @Configuration 의 Singleton 테스트 */
+	public MemberRepository getMemberRepository() {
+		return memberRepository;
+	}
 }
