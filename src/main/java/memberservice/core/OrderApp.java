@@ -1,10 +1,12 @@
-package memberservice.core.order;
+package memberservice.core;
 
 import memberservice.core.AppConfig;
 import memberservice.core.member.Grade;
 import memberservice.core.member.Member;
 import memberservice.core.member.MemberService;
 import memberservice.core.member.MemberServiceImpl;
+import memberservice.core.order.Order;
+import memberservice.core.order.OrderService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

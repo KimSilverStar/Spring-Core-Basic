@@ -1,10 +1,13 @@
-package memberservice.core.member;
+package memberservice.core;
 
 /*
 * main 함수로 직접 테스트 케이스 작성
 */
 
 import memberservice.core.AppConfig;
+import memberservice.core.member.Grade;
+import memberservice.core.member.Member;
+import memberservice.core.member.MemberService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
