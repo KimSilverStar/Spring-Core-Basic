@@ -1,5 +1,9 @@
 package memberservice.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService {
 	/* 변경 전) DIP, OCP 위배 */
 //	private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -12,6 +16,7 @@ public class MemberServiceImpl implements MemberService {
 	/* 변경 후 - 생성자를 통한 DI) DIP, OCP 만족 - interface 에만 의존 */
 	private final MemberRepository memberRepository;
 
+	@Autowired
 	public MemberServiceImpl(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
 	}
