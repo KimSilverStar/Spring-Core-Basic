@@ -39,12 +39,12 @@ public class AppConfig {
 	public OrderService orderService() {
 		System.out.println("call AppConfig.orderService");
 		// OrderServiceImpl - 생성자를 통한 DI 이용
-//		return new OrderServiceImpl(
-//				memberRepository(), discountPolicy()
-//		);
+		return new OrderServiceImpl(
+				memberRepository(), discountPolicy()
+		);
 
 		// OrderServiceImpl - setter 를 통한 DI 이용
-		return null;
+//		return null;
 	}
 
 	@Bean

@@ -38,11 +38,11 @@ public class OrderServiceTest {
 
 	@Test
 	void setterInjectionTest() {
-		OrderServiceImpl orderService = new OrderServiceImpl();
-		// setter 를 통한 DI
-		orderService.setMemberRepository(new MemoryMemberRepository());
-		orderService.setDiscountPolicy(new FixDiscountPolicy());
-
-		orderService.createOrder(1L, "itemA", 10000);
+//		OrderServiceImpl orderService = new OrderServiceImpl();
+//		// setter 를 통한 DI
+//		orderService.setMemberRepository(new MemoryMemberRepository());
+//		orderService.setDiscountPolicy(new FixDiscountPolicy());
+//
+//		orderService.createOrder(1L, "itemA", 10000);
 	}
 }
