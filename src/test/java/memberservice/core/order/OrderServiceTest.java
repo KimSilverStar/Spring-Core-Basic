@@ -1,10 +1,8 @@
 package memberservice.core.order;
 
 import memberservice.core.AppConfig;
-import memberservice.core.member.Grade;
-import memberservice.core.member.Member;
-import memberservice.core.member.MemberService;
-import memberservice.core.member.MemberServiceImpl;
+import memberservice.core.discount.FixDiscountPolicy;
+import memberservice.core.member.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,5 +34,15 @@ public class OrderServiceTest {
 		);
 
 		Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
+	}
+
+	@Test
+	void setterInjectionTest() {
+		OrderServiceImpl orderService = new OrderServiceImpl();
+		// setter 를 통한 DI
+		orderService.setMemberRepository(new MemoryMemberRepository());
+		orderService.setDiscountPolicy(new FixDiscountPolicy());
+
+		orderService.createOrder(1L, "itemA", 10000);
 	}
 }
