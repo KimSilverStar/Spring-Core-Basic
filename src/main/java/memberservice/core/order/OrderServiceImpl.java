@@ -1,6 +1,7 @@
 package memberservice.core.order;
 
 import lombok.RequiredArgsConstructor;
+import memberservice.core.annotation.MainDiscountPolicy;
 import memberservice.core.discount.DiscountPolicy;
 import memberservice.core.discount.FixDiscountPolicy;
 import memberservice.core.discount.RateDiscountPolicy;
@@ -33,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	public OrderServiceImpl(
 			MemberRepository memberRepository,
-			DiscountPolicy discountPolicy) {
+			@MainDiscountPolicy DiscountPolicy discountPolicy) {
 		this.memberRepository = memberRepository;
 		this.discountPolicy = discountPolicy;
 	}
