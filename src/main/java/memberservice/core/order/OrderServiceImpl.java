@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 // final 선언된 필드를 인자로 받는 생성자를 Lombok 이 자동 생성
 public class OrderServiceImpl implements OrderService {
 	/* 변경 전) DIP, OCP 위배 */
@@ -29,14 +29,14 @@ public class OrderServiceImpl implements OrderService {
 	private final MemberRepository memberRepository;
 	private final DiscountPolicy discountPolicy;
 
-//	@Autowired
-//	public OrderServiceImpl(
-//			MemberRepository memberRepository,
-//			DiscountPolicy discountPolicy) {
-//		System.out.println("1. OrderServiceImpl.OrderServiceImpl");
-//		this.memberRepository = memberRepository;
-//		this.discountPolicy = discountPolicy;
-//	}
+	@Autowired
+	public OrderServiceImpl(
+			MemberRepository memberRepository,
+			DiscountPolicy rateDiscountPolicy) {
+		System.out.println("1. OrderServiceImpl.OrderServiceImpl");
+		this.memberRepository = memberRepository;
+		this.discountPolicy = rateDiscountPolicy;
+	}
 
 	/* setter (수정자)를 통한 DI - set~(주입할 Bean)
 	(기존 final 선언된 필드를 final 선언 제거함)
