@@ -8,6 +8,7 @@ import memberservice.core.member.Member;
 import memberservice.core.member.MemberRepository;
 import memberservice.core.member.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,10 +33,9 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	public OrderServiceImpl(
 			MemberRepository memberRepository,
-			DiscountPolicy rateDiscountPolicy) {
-		System.out.println("1. OrderServiceImpl.OrderServiceImpl");
+			@Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
 		this.memberRepository = memberRepository;
-		this.discountPolicy = rateDiscountPolicy;
+		this.discountPolicy = discountPolicy;
 	}
 
 	/* setter (수정자)를 통한 DI - set~(주입할 Bean)
