@@ -38,7 +38,7 @@ public class NetworkClient3 {
 	@PostConstruct
 	public void init() {
 		// 네트워크와 연결
-		System.out.println("NetworkClient2.init");
+		System.out.println("NetworkClient3.init");
 		connect();
 		call("초기화 연결 메시지");
 	}
@@ -47,7 +47,7 @@ public class NetworkClient3 {
 	@PreDestroy
 	public void close() {
 		// 네트워크와 연결 종료
-		System.out.println("NetworkClient2.close");
+		System.out.println("NetworkClient3.close");
 		disconnect();
 	}
 }

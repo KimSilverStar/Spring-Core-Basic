@@ -13,7 +13,7 @@ public class BeanLifeCycle {
 		// ConfigurableApplicationContext 사용
 		ConfigurableApplicationContext ac =
 				new AnnotationConfigApplicationContext(LifeCycleConfig.class);
-		NetworkClient2 client = ac.getBean(NetworkClient2.class);
+		NetworkClient3 client = ac.getBean(NetworkClient3.class);
 		ac.close();			// 스프링 컨테이너 종료
 	}
 
@@ -23,8 +23,8 @@ public class BeanLifeCycle {
 		// 설정 정보 Config 클래스의 @Bean 에 초기화 메소드, 소멸 메소드 지정
 //		@Bean(initMethod = "init", destroyMethod = "close")
 		@Bean
-		public NetworkClient2 networkClient() {
-			NetworkClient2 networkClient = new NetworkClient2();
+		public NetworkClient3 networkClient() {
+			NetworkClient3 networkClient = new NetworkClient3();
 			networkClient.setUrl("http://spring-core-basic.dev");
 			return networkClient;
 		}
