@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -29,7 +30,7 @@ public class SingletonWithPrototypeTest1 {
 	}
 
 	// Singleton 빈과 Prototype 빈 함께 사용 - 문제 발생
-	// => ObjectProvider 로 해결
+	// => ObjectProvider (스프링 제공) / Provider (자바 표준 제공) 로 해결
 	@Test
 	void singletonClientUsePrototype() {
 		AnnotationConfigApplicationContext ac =
@@ -53,7 +54,8 @@ public class SingletonWithPrototypeTest1 {
 		ClientBean clientBean2 = ac.getBean(ClientBean.class);
 		int count2 = clientBean2.logic();
 		assertThat(count2).isEqualTo(1);
-		// ObjectProvider 로 clientBean1, clientBean2 에 서로 다른 PrototypeBean
+		// ObjectProvider / Provider 로
+		// clientBean1, clientBean2 에 서로 다른 PrototypeBean DL
 	}
 
 	@Scope("singleton")			// 생략 가능 (Singleton 스코프가 기본)
@@ -73,14 +75,22 @@ public class SingletonWithPrototypeTest1 {
 //			return prototypeBean.getCount();
 //		}
 
-		// PrototypeBean 을 찾아주는 DL (Dependency Lookup, 의존성 탐색 / 조회) 제공
-		// => ObjectProvider: 컨테이너에서 명시한 빈을 조회하여 반환해주는 대리자
-		// 테스트 코드이므로, 간편히 필드 주입 사용
-		@Autowired
-		private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+		/* 1. ObjectProvider (스프링 제공)로 문제점 해결
+          - 명시한 빈을 찾아주는 DL (Dependency Lookup, 의존성 탐색 / 조회) 제공
+		  - 컨테이너에서 명시한 빈을 조회하여 반환해주는 대리자
+		*/
+
+		/* 2. Provider (자바 표준 제공)로 문제점 해결
+          - 스프링 컨테이너 뿐만 아니라, 다른 컨테이너에서도 사용 가능
+        */
+
+		@Autowired			// 테스트 코드이므로, 간편히 필드 주입 사용
+//		private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+		private Provider<PrototypeBean> prototypeBeanProvider;
 
 		public int logic() {
-			PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+//			PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+			PrototypeBean prototypeBean = prototypeBeanProvider.get();
 			prototypeBean.addCount();
 			return prototypeBean.getCount();
 		}
