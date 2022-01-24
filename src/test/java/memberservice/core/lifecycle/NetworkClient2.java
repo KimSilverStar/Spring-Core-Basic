@@ -1,12 +1,13 @@
 package memberservice.core.lifecycle;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
+/*
+ * 빈 생명주기 콜백 -
+ */
 
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient2 {
 	private String url;
 
-	public NetworkClient() {
+	public NetworkClient2() {
 		System.out.println("생성자 호출, url = " + url);
 	}
 
@@ -28,20 +29,18 @@ public class NetworkClient implements InitializingBean, DisposableBean {
 		System.out.println("close: " + url);
 	}
 
-	/* 초기화: 빈에 의존관계 주입이 끝난 후 (객체 Property 셋팅 끝난 후), 호출 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	/* 초기화: 빈에 의존관계 주입이 끝난 후 호출 */
+	public void init() {
 		// 네트워크와 연결
-		System.out.println("NetworkClient.afterPropertiesSet");
+		System.out.println("NetworkClient2.init");
 		connect();
 		call("초기화 연결 메시지");
 	}
 
 	/* 소멸: 스프링 컨테이너 / 빈이 종료될 때 호출 */
-	@Override
-	public void destroy() throws Exception {
+	public void close() {
 		// 네트워크와 연결 종료
-		System.out.println("NetworkClient.destroy");
+		System.out.println("NetworkClient2.close");
 		disconnect();
 	}
 }

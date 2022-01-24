@@ -1,7 +1,6 @@
 package memberservice.core.lifecycle;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -14,16 +13,16 @@ public class BeanLifeCycle {
 		// ConfigurableApplicationContext 사용
 		ConfigurableApplicationContext ac =
 				new AnnotationConfigApplicationContext(LifeCycleConfig.class);
-		NetworkClient client = ac.getBean(NetworkClient.class);
+		NetworkClient2 client = ac.getBean(NetworkClient2.class);
 		ac.close();			// 스프링 컨테이너 종료
 	}
 
 	/* 스프링 빈 수동 등록 - Config 클래스 */
 	@Configuration
 	static class LifeCycleConfig {
-		@Bean
-		public NetworkClient networkClient() {
-			NetworkClient networkClient = new NetworkClient();
+		@Bean(initMethod = "init", destroyMethod = "close")
+		public NetworkClient2 networkClient() {
+			NetworkClient2 networkClient = new NetworkClient2();
 			networkClient.setUrl("http://spring-core-basic.dev");
 			return networkClient;
 		}
