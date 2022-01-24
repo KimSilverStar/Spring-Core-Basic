@@ -1,6 +1,7 @@
 package memberservice.core.scope;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -28,6 +29,7 @@ public class SingletonWithPrototypeTest1 {
 	}
 
 	// Singleton 빈과 Prototype 빈 함께 사용 - 문제 발생
+	// => ObjectProvider 로 해결
 	@Test
 	void singletonClientUsePrototype() {
 		AnnotationConfigApplicationContext ac =
@@ -50,31 +52,37 @@ public class SingletonWithPrototypeTest1 {
 
 		ClientBean clientBean2 = ac.getBean(ClientBean.class);
 		int count2 = clientBean2.logic();
-		assertThat(count2).isEqualTo(2);
-
-		assertThat(clientBean1.getPrototypeBean())
-				.isSameAs(clientBean2.getPrototypeBean());
+		assertThat(count2).isEqualTo(1);
+		// ObjectProvider 로 clientBean1, clientBean2 에 서로 다른 PrototypeBean
 	}
 
 	@Scope("singleton")			// 생략 가능 (Singleton 스코프가 기본)
 	static class ClientBean {
 		// Singleton 빈인 ClientBean 이 PrototypeBean 을 주입받음
 		// => 주입 시점에 PrototypeBean 요청
-		private final PrototypeBean prototypeBean;
+//		private final PrototypeBean prototypeBean;
+//
+//		@Autowired				// 생략 가능 (생성자 1개)
+//		public ClientBean(PrototypeBean prototypeBean) {
+//			this.prototypeBean = prototypeBean;
+//			// ClientBean 생성 시점에 PrototypeBean 주입됨
+//		}
+//
+//		public int logic() {
+//			prototypeBean.addCount();
+//			return prototypeBean.getCount();
+//		}
 
-		@Autowired				// 생략 가능 (생성자 1개)
-		public ClientBean(PrototypeBean prototypeBean) {
-			this.prototypeBean = prototypeBean;
-			// ClientBean 생성 시점에 PrototypeBean 주입됨
-		}
+		// PrototypeBean 을 찾아주는 DL (Dependency Lookup, 의존성 탐색 / 조회) 제공
+		// => ObjectProvider: 컨테이너에서 명시한 빈을 조회하여 반환해주는 대리자
+		// 테스트 코드이므로, 간편히 필드 주입 사용
+		@Autowired
+		private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
 		public int logic() {
+			PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
 			prototypeBean.addCount();
 			return prototypeBean.getCount();
-		}
-
-		public PrototypeBean getPrototypeBean() {
-			return prototypeBean;
 		}
 	}
 
