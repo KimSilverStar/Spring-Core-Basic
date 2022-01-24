@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	// JSR-330 Provider 설정 추가
 	implementation 'javax.inject:javax.inject:1'
+	// web 라이브러리 추가
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// Lombok 설정 추가
 	compileOnly 'org.projectlombok:lombok'
