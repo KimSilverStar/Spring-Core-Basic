@@ -20,6 +20,7 @@ public class BeanLifeCycle {
 	/* 스프링 빈 수동 등록 - Config 클래스 */
 	@Configuration
 	static class LifeCycleConfig {
+		// 설정 정보 Config 클래스의 @Bean 에 초기화 메소드, 소멸 메소드 지정
 		@Bean(initMethod = "init", destroyMethod = "close")
 		public NetworkClient2 networkClient() {
 			NetworkClient2 networkClient = new NetworkClient2();

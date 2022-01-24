@@ -1,7 +1,8 @@
 package memberservice.core.lifecycle;
 
 /*
- * 빈 생명주기 콜백 -
+ * 빈 생명주기 콜백
+  - 설정 정보 Config 클래스의 @Bean 에 초기화 메소드, 소멸 메소드 지정
  */
 
 public class NetworkClient2 {
